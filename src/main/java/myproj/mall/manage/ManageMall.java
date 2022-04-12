@@ -15,7 +15,7 @@ import myproj.mall.person.MallMgr;
 import myproj.mall.person.MallSecurity;
 import myproj.mall.store.Store;
 
-public class ManageMall implements ManageEmployee {
+public class ManageMall implements IManageEmployee {
     // Fields
     private Set<Store> stores;
     private Map<String, Object> mallEmpls;

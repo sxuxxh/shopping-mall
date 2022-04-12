@@ -14,7 +14,7 @@ import myproj.mall.store.Product;
 import myproj.mall.store.ProductCatalog;
 import myproj.mall.store.Store;
 
-public class ManageStore implements ManageEmployee {
+public class ManageStore implements IManageEmployee {
     // Fields
     private List<ProductCatalog> catalogs;
     private List<Product> products;
