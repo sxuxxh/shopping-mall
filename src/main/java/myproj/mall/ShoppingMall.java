@@ -9,6 +9,7 @@ import myproj.mall.manage.ManageMall;
 import myproj.mall.manage.ManageStore;
 import myproj.mall.person.*;
 import myproj.mall.shop.CheckOut;
+import myproj.mall.shop.MallMap;
 import myproj.mall.shop.Navigate;
 import myproj.mall.shop.ShoppingCart;
 import myproj.mall.store.Product;
@@ -252,7 +253,7 @@ public class ShoppingMall {
                     break;
                 case "3":
                     //nextMenu = "003-StoreMgrMain";
-                    System.out.print("Printing mall map...");
+                    MallMap.printMap();
                     System.out.print("\n");
                     processMenu("004-CustomerMain");
                     break;
