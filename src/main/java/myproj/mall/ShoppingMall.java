@@ -15,18 +15,57 @@ import myproj.mall.store.Product;
 import myproj.mall.store.ProductCatalog;
 import myproj.mall.store.Store;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Scanner;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
 
 public class ShoppingMall {
     public static Scanner scanner = new Scanner(System.in);
+    private static final Path passwdFilePath = Paths.get(System.getProperty("user.dir")+"\\src\\main\\resources\\passwd.txt");
+    private static final Path menuFilePath = Paths.get(System.getProperty("user.dir")+"\\src\\main\\resources\\menus.txt");
     private static Navigate navigate = new Navigate(new HashMap<String, String>());
     public static ManageMall manageMall = new ManageMall(new HashSet<Store>(), new HashMap<String, Object>());
     public static ManageStore manageStore = new ManageStore(new ArrayList<ProductCatalog>(),new ArrayList<Product>(),new HashMap<String, Object>());
     public static ShoppingCart shoppingCart = new ShoppingCart(new ArrayList<Product>());
     public static CheckOut checkOut = new CheckOut("",0);
+    private static final String menu1Key = "001-Main";
+    private static final String menu1 = "Please select from the following menu:\n" +
+            "Enter 1 for Customer Store Browsing and Shopping.\n" +
+            "Enter 2 for Mall Store Placement and Mall Staffing.\n" +
+            "Enter 3 for Store Product and Staff Management\n" +
+            "Enter 4 to exit.\n" +
+            "==> ";
+    private static final String menu2Key = "002-MallMgrMain";
+    private static final String menu2 = "Please select from the following menu:\n" +
+            "Enter 1 to add a store.\n" +
+            "Enter 2 to add a mall employee.\n" +
+            "Enter 3 to update a mall employee.\n" +
+            "Enter 4 to list mall employees.\n" +
+            "Enter 5 to return to the mall manager menu.\n" +
+            "Enter 6 to return to the mall main menu.\n" +
+            "Enter 7 to exit.\n" +
+            "==> ";
+    private static final String menu3Key = "003-StoreMgrMain";
+    private static final String menu3 = "Please select from the following menu:\n" +
+            "Enter 1 to add a store manager.\n" +
+            "Enter 2 to add a store staff.\n" +
+            "Enter 3 to add a store product.\n" +
+            "Enter 4 to return to the store manager menu\n" +
+            "Enter 5 to return to the mall main menu\n" +
+            "Enter 6 to exit.\n" +
+            "==> ";
+    private static final String menu4Key = "004-CustomerMain";
+    private static final String menu4 = "Please select from the following menu:\n" +
+            "Enter 1 to browse stores.\n" +
+            "Enter 2 to shop in a store.\n" +
+            "Enter 3 to print mall map.\n" +
+            "Enter 4 to return to Customer Main Menu.\n" +
+            "Enter 5 to return to Mall Main Menu.\n" +
+            "Enter 6 to exit.\n" +
+            "==> ";
+    private static final String menuFileContent = menu1Key+"~"+menu1+"#"+
+    menu2Key+"~"+menu2+"#"+menu3Key+"~"+menu3+"#"+menu4Key+"~"+menu4;
 
 /*****************************************************************
     main method
@@ -36,7 +75,7 @@ public class ShoppingMall {
         String usrIn = "";
         String startMenuKey = "";
         System.out.println("Welcome to Skyline Shopping Mall!\n");
-        buildMenus();
+        menus();
 
         // Start with main menu, the rest drive themselves
         startMenuKey = "001-Main";
@@ -56,46 +95,67 @@ public class ShoppingMall {
 ******************************************************************/
 
     // Method: build navigation menus
-    public static void buildMenus() {
-        String menu1Key = "001-Main";
-        String menu1 = "Please select from the following menu:\n" +
-                "Enter 1 for Customer Store Browsing and Shopping.\n" +
-                "Enter 2 for Mall Store Placement and Mall Staffing.\n" +
-                "Enter 3 for Store Product and Staff Management\n" +
-                "Enter 4 to exit.\n" +
-                "==> ";
-        String menu2Key = "002-MallMgrMain";
-        String menu2 = "Please select from the following menu:\n" +
-                "Enter 1 to add a store.\n" +
-                "Enter 2 to add a mall employee.\n" +
-                "Enter 3 to update a mall employee.\n" +
-                "Enter 4 to list mall employees.\n" +
-                "Enter 5 to return to the mall manager menu.\n" +
-                "Enter 6 to return to the mall main menu.\n" +
-                "Enter 7 to exit.\n" +
-                "==> ";
-        String menu3Key = "003-StoreMgrMain";
-        String menu3 = "Please select from the following menu:\n" +
-                "Enter 1 to add a store manager.\n" +
-                "Enter 2 to add a store staff.\n" +
-                "Enter 3 to add a store product.\n" +
-                "Enter 4 to return to the store manager menu\n" +
-                "Enter 5 to return to the mall main menu\n" +
-                "Enter 6 to exit.\n" +
-                "==> ";
-        String menu4Key = "004-CustomerMain";
-        String menu4 = "Please select from the following menu:\n" +
-                "Enter 1 to browse stores.\n" +
-                "Enter 2 to shop in a store.\n" +
-                "Enter 3 to print mall map.\n" +
-                "Enter 4 to return to Customer Main Menu.\n" +
-                "Enter 5 to return to Mall Main Menu.\n" +
-                "Enter 6 to exit.\n" +
-                "==> ";
-        navigate.buildMenu(menu1Key, menu1);
-        navigate.buildMenu(menu2Key, menu2);
-        navigate.buildMenu(menu3Key, menu3);
-        navigate.buildMenu(menu4Key, menu4);
+    public static void menus() {
+        String menuKey = "";
+        String[] menuArr = new String[2];
+        String allMenuStr = "";
+        createFile(menuFilePath); // create menus.txt
+        updateFile(menuFilePath, menuFileContent); // update menus.txt
+        allMenuStr = readFile(menuFilePath);
+        List<String> menuLst = Arrays.asList(allMenuStr.split("#"));
+        for (String menu: menuLst
+             ) {
+            menuArr = menu.split("~");
+            navigate.buildMenu(menuArr[0], menuArr[1]);
+        }
+    }
+
+    //Method: create file
+    public static void createFile(Path filePath) {
+        try {
+            if (Files.notExists(filePath)) {
+                Files.createFile(filePath);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Method: update file
+    public static void updateFile(Path filePath, String fileContent) {
+        try {
+            if (Files.exists(filePath)) {
+                Files.writeString(filePath, fileContent);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Method: read file
+    public static String readFile(Path filePath) {
+        String retStr = "";
+        try {
+            if (Files.exists(filePath)) {
+                retStr = Files.readString(filePath);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            retStr = "";
+        } finally {
+            return retStr;
+        }
+    }
+
+    //Method: delete menus.txt
+    public static void deleteWordsFile(Path filePath) {
+        try {
+            if (Files.exists(filePath)) {
+                Files.delete(filePath);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // Method: get menu

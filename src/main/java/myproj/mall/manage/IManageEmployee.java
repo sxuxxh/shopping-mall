@@ -1,3 +1,8 @@
+/*
+ Project: shopping-mall
+ Build: Maven
+ Interface: IManageEmployee - methods for managing employees
+*/
 package myproj.mall.manage;
 
 public interface IManageEmployee {

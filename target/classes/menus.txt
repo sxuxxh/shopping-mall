@@ -1,0 +1,28 @@
+001-Main~Please select from the following menu:
+Enter 1 for Customer Store Browsing and Shopping.
+Enter 2 for Mall Store Placement and Mall Staffing.
+Enter 3 for Store Product and Staff Management
+Enter 4 to exit.
+==> #002-MallMgrMain~Please select from the following menu:
+Enter 1 to add a store.
+Enter 2 to add a mall employee.
+Enter 3 to update a mall employee.
+Enter 4 to list mall employees.
+Enter 5 to return to the mall manager menu.
+Enter 6 to return to the mall main menu.
+Enter 7 to exit.
+==> #003-StoreMgrMain~Please select from the following menu:
+Enter 1 to add a store manager.
+Enter 2 to add a store staff.
+Enter 3 to add a store product.
+Enter 4 to return to the store manager menu
+Enter 5 to return to the mall main menu
+Enter 6 to exit.
+==> #004-CustomerMain~Please select from the following menu:
+Enter 1 to browse stores.
+Enter 2 to shop in a store.
+Enter 3 to print mall map.
+Enter 4 to return to Customer Main Menu.
+Enter 5 to return to Mall Main Menu.
+Enter 6 to exit.
+==> 
