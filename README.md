@@ -18,3 +18,14 @@ Shopping Mall with the following features
 ### Browse products
 ### Add product to shopping cart
 ### Checkout
+
+## Console Run CMD/Procedure
+####C:\Users\sxuxxh\projects\shopping-mall\target\classes\myproj\mall>C:\Users\sxuxxh\.jdks\jbr-17.0.2\bin\java.exe -classpath C:\Users\sxuxxh\projects\shopping-mall\target\classes myproj.mall.ShoppingMall
+####Welcome to Skyline Shopping Mall!
+
+####Please select from the following menu:
+####Enter 1 for Customer Store Browsing and Shopping.
+####Enter 2 for Mall Store Placement and Mall Staffing.
+####Enter 3 for Store Product and Staff Management
+####Enter 4 to exit.
+####==>
