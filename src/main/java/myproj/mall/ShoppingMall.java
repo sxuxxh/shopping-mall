@@ -5,6 +5,7 @@
 */
 package myproj.mall;
 
+import myproj.mall.manage.Login;
 import myproj.mall.manage.ManageMall;
 import myproj.mall.manage.ManageStore;
 import myproj.mall.person.*;
@@ -23,7 +24,7 @@ import java.util.*;
 
 public class ShoppingMall {
     public static Scanner scanner = new Scanner(System.in);
-    private static final Path passwdFilePath = Paths.get(System.getProperty("user.dir")+"\\src\\main\\resources\\passwd.txt");
+    public static final Path passFilePath = Paths.get(System.getProperty("user.dir")+"\\src\\main\\resources\\passes.txt");
     private static final Path menuFilePath = Paths.get(System.getProperty("user.dir")+"\\src\\main\\resources\\menus.txt");
     private static Navigate navigate = new Navigate(new HashMap<String, String>());
     public static ManageMall manageMall = new ManageMall(new HashSet<Store>(), new HashMap<String, Object>());
@@ -75,19 +76,33 @@ public class ShoppingMall {
     public static void main(String[] args) {
         String usrIn = "";
         String startMenuKey = "";
+        String role = "";
         System.out.println("Welcome to Skyline Shopping Mall!\n");
         menus();
 
-        // Start with main menu, the rest drive themselves
-        startMenuKey = "001-Main";
+        // Login
+        Login myLogin = new Login();
+        myLogin.getUidPwd();
+        myLogin.authnAuthz();
         try {
-            processMenu(startMenuKey);
+            switch (myLogin.getRole()) {
+                case "MM":
+                    processMenu("002-MallMgrMain");
+                    break;
+                case "MC":
+                    processMenu("004-CustomerMain");
+                    break;
+                case "SM":
+                    processMenu("003-StoreMgrMain");
+                    break;
+                default: processMenu("001-Main");
+            }
         } catch (Exception e) {
-            System.out.println("Something was wrong. It's likely that " +
-                    "store and/or products are not ready for service." +
-                    " Let's start over and set them up first via options " +
-                    "2 and 3 in the mall main menu.\n");
-            processMenu("001-Main");
+                System.out.println("Something was wrong. It's likely that " +
+                        "store and/or products are not ready for service." +
+                        " Let's start over and set them up first via options " +
+                        "2 and 3 in the mall main menu.\n");
+                processMenu("001-Main");
         }
     }
 
@@ -194,7 +209,7 @@ public class ShoppingMall {
                     processMenu("003-StoreMgrMain");
                     break;
                 case "4":
-                    System.out.print("\n");
+                    System.out.print("Goodbye!\n");
                     System.exit(0);
                 default:
                     System.out.print("\n");
@@ -266,6 +281,7 @@ public class ShoppingMall {
                     processMenu("001-Main");
                     break;
                 case "6":
+                    System.out.print("Goodbye!\n");
                     System.exit(0);
                 default:
                     System.out.print("\n");
@@ -313,6 +329,7 @@ public class ShoppingMall {
                     System.out.println("\n");
                     processMenu("001-Main");
                 case "7":
+                    System.out.print("Goodbye!\n");
                     System.exit(0);
                 default:
                     System.out.print("\n");
@@ -355,6 +372,7 @@ public class ShoppingMall {
                     processMenu("001-Main");
                     break;
                 case "6":
+                    System.out.print("Goodbye!\n");
                     System.exit(0);
                 default:
                     System.out.print("\n");

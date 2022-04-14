@@ -5,18 +5,27 @@
 */
 package myproj.mall.manage;
 
+import myproj.mall.ShoppingMall;
+
+import java.io.Console;
+import java.nio.file.Files;
+import java.util.Arrays;
+import java.util.List;
+
 public class Login {
     // Fields
     private String uid;
     private String pwd;
+    private String role;
 
     // Constructors
     public Login() {
     }
 
-    public Login(String uid, String pwd) {
+    public Login(String uid, String pwd, String role) {
         this.uid = uid;
         this.pwd = pwd;
+        this.role = role;
     }
 
     // Setters
@@ -28,6 +37,8 @@ public class Login {
         this.pwd = pwd;
     }
 
+    public void setRole(String role) { this.role = role;}
+
     // Getters
     public String getUid() {
         return uid;
@@ -35,5 +46,46 @@ public class Login {
 
     public String getPwd() {
         return pwd;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    // Method: get uid/pwd
+    public void getUidPwd() {
+        Console console = System.console();
+        if (!(console == null)) {
+            this.setUid(console.readLine("Enter User Id: "));
+            this.setPwd(new String(console.readPassword("Enter Password: ")));
+        } else {
+            System.out.print("Enter User Id: ");
+            this.setUid(ShoppingMall.scanner.next());
+            System.out.print("Enter Password: ");
+            this.setPwd(ShoppingMall.scanner.next());
+        }
+    }
+
+    // Method: authenticate and authorize login, return role
+    public void authnAuthz() {
+        String[] loginArr = new String[3];
+        String role = "";
+        String allUsrContent = ShoppingMall.readFile(ShoppingMall.passFilePath);
+        List<String> usrLst = Arrays.asList(allUsrContent.split("#"));
+        for (String usr: usrLst
+        ) {
+            loginArr = usr.split(",");
+            if (this.getUid().equals(loginArr[0]) && String.valueOf(this.getPwd().hashCode()).equals(loginArr[1])) {
+                this.setRole(loginArr[2]);
+                break;
+            }
+        }
+        if (this.getRole()==null || this.getRole().equals("")) {
+            System.out.println("\nInvalid Login. Possible causes:\n   " +
+                    "1. You may have entered invalid userid/password.\n   " +
+                    "2. You have not registered an account.\n" +
+                    "Please do the needful.\nGoodbye!");
+            System.exit(0);
+        }
     }
 }
