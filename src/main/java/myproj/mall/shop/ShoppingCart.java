@@ -59,7 +59,7 @@ public class ShoppingCart {
 
     // Method: print items in Cart
     public void printCartItems() {
-        System.out.println("Your Shopping Cart has the following items:");
+        System.out.println("Okay, your Shopping Cart has the following items:");
         for (Product product: this.items
              ) {
             if (!(product == null)) {

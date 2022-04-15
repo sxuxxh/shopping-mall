@@ -62,7 +62,8 @@ public class Navigate {
         System.out.print("Store: "+storeName+" has the following products:\n");
         for (Product product : ManageMall.getAStore(storeName).getProducts()
         ) {
-            System.out.println("Product ID: "+product.getProductId()+" Product Name: "+product.getName());
+            System.out.println("Product ID: "+product.getProductId()+" Product Name: "+product.getName()+
+                    " Product Size: "+product.getSize()+" Product Price: $"+product.getPrice());
         }
     }
 }

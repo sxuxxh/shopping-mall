@@ -5,6 +5,7 @@
 */
 package myproj.mall.manage;
 
+import java.nio.file.Path;
 import java.util.*;
 
 import myproj.mall.ShoppingMall;
@@ -66,7 +67,7 @@ public class ManageStore implements IManageEmployee {
                 '}';
     }
 
-    // Method: add a product
+    // Method: manually add a product
     public static void addAProduct(String storeName) {
         Product product = new Product();
         System.out.print("Enter product id: ");
@@ -90,6 +91,38 @@ public class ManageStore implements IManageEmployee {
                     store.getProducts().add(product);
                 }
                 System.out.println("You have added: " + product + " to store: "+store);
+            }
+        }
+    }
+
+    // Method: init to load products into 3 stores
+    public void loadProducts() {
+        String productsContent = "";
+        List<String> productLst = new ArrayList<>();
+        String[] productArr = new String[5];
+        for (int i=1; i<=3; i++) {
+            productsContent = ShoppingMall.readFile(Path.of(String.format(String.valueOf(ShoppingMall.productFilePath),i)));
+            productLst = Arrays.asList(productsContent.split("#"));
+            for (String productStr: productLst
+            ) {
+                Product product = new Product();
+                productArr = productStr.split(",");
+                product.setProductId(productArr[0]);
+                product.setName(productArr[1]);
+                product.setSize(productArr[2]);
+                product.setColor(productArr[3]);
+                product.setPrice(Float.parseFloat(productArr[4]));
+                for (Store store: ShoppingMall.manageMall.getStores()) {
+                    ArrayList<Product> products = new ArrayList<>();
+                    if (Integer.parseInt(store.getId())==i) {
+                        if (store.getProducts() == null) {
+                            products.add(product);
+                            store.setProducts(products);
+                        } else {
+                            store.getProducts().add(product);
+                        }
+                    }
+                }
             }
         }
     }

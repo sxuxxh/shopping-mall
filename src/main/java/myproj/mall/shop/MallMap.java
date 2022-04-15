@@ -55,13 +55,13 @@ public class MallMap {
         System.out.println(" ___________________________");
         System.out.println("|  __________  __________   |");
         System.out.println("|  |    E   |  |    F    |  |     _____________________");
-        System.out.println("|  |#001____|  |#002_____|  |____/  _________________  |");
-        System.out.println("|____________  ____________________/  #009          |  |");
-        System.out.println("            |  |                           D    #10 |  |");
+        System.out.println("|  |#1234____|  |#1235_____|  |____/  _______ _______  |");
+        System.out.println("|____________  ____________________/  #1236         |  |");
+        System.out.println("            |  |                           D  #1237 |  |");
         System.out.println("   POND     |  |   PLAYGROUND                       |  |");
         System.out.println("____________|  |____________________________________|  |");
         System.out.println("|  __________   ______________________   ____________  |");
-        System.out.println("|  |#003    |  | #008                |   |     #009 |  |");
+        System.out.println("|  |#1239   |  | #1238               |   |    #1240 |  |");
         System.out.println("|  |        |  |                     |   |          |  |");
         System.out.println("|  |________|  |_____________________|   |__________|  |");
         System.out.println("|______________________________________________________|");

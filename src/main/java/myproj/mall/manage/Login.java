@@ -56,12 +56,12 @@ public class Login {
     public void getUidPwd() {
         Console console = System.console();
         if (!(console == null)) {
-            this.setUid(console.readLine("Enter User Id: "));
-            this.setPwd(new String(console.readPassword("Enter Password: ")));
+            this.setUid(console.readLine("Please enter your user name: "));
+            this.setPwd(new String(console.readPassword("Please enter your password:  ")));
         } else {
-            System.out.print("Enter User Id: ");
+            System.out.print("Please enter your user name: ");
             this.setUid(ShoppingMall.scanner.next());
-            System.out.print("Enter Password: ");
+            System.out.print("Please enter your password: ");
             this.setPwd(ShoppingMall.scanner.next());
         }
     }

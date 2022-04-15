@@ -5,9 +5,7 @@
 */
 package myproj.mall.manage;
 
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import myproj.mall.ShoppingMall;
 import myproj.mall.person.MallJanitor;
@@ -56,7 +54,7 @@ public class ManageMall implements IManageEmployee {
                 '}';
     }
 
-    // Method: add a store
+    // Method: add a store manually
     public static void addAStore() {
         Store store = new Store();
         System.out.print("Enter store id: ");
@@ -70,6 +68,23 @@ public class ManageMall implements IManageEmployee {
         store.setLotId(ShoppingMall.scanner.next());
         ShoppingMall.manageMall.stores.add(store);
         System.out.println("You have added: " + store + " in the mall.");
+    }
+
+    // Method: init to load stores from file
+    public void loadStores() {
+        String[] storeArr = new String[4];
+        String storesContent = ShoppingMall.readFile(ShoppingMall.storeFilePath);
+        List<String> storeLst = Arrays.asList(storesContent.split("#"));
+        for (String storeStr: storeLst
+        ) {
+            Store store = new Store();
+            storeArr = storeStr.split(",");
+            store.setId(storeArr[0]);
+            store.setName(storeArr[1]);
+            store.setType(storeArr[2]);
+            store.setLotId(storeArr[3]);
+            ShoppingMall.manageMall.stores.add(store);
+        }
     }
 
     // Method: get a store
