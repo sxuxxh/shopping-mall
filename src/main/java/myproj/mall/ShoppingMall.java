@@ -241,11 +241,11 @@ public class ShoppingMall {
                     System.out.print("==> "); // Enter a store name
                     usrInStore = scanner.next();
                     do {
+                        System.out.println("");
                         Navigate.browseProducts(usrInStore); // Display store products and get user selection
                         System.out.print("\nPlease enter the ProductID of the " +
                                 "product to be added to your Shopping Cart, or enter \"DONE\" when ready to check out. ==> ");
                         usrIn = scanner.next();
-                        System.out.println("\n");
                         shoppingCart.addAProductToCart(usrInStore, usrIn); // add item in Cart
                         shoppingCart.printCartItems();
                         // remove item from cart
@@ -267,8 +267,8 @@ public class ShoppingMall {
                             }
                         }
                     } while (!usrIn.equals("DONE"));
-                    System.out.println("\nThank you!! Here is the items you've selected for your purchase:");
-                    System.out.println(shoppingCart);
+                    System.out.println("\nThank you!! Here are the items you've selected for your purchase:");
+                    shoppingCart.printCartItems();
                     System.out.println("\nYour total payment is: $"+checkOut.calculatePayment(shoppingCart));
                     System.out.println("Thank you "+myLogin.getUid()+ " for your business!\nPlease shop with "+usrInStore+" again.");
                     shoppingCart.getItems().clear(); // reset shopping cart

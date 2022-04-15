@@ -99,19 +99,19 @@ public class ManageStore implements IManageEmployee {
     public void loadProducts() {
         String productsContent = "";
         List<String> productLst = new ArrayList<>();
-        String[] productArr = new String[5];
-        for (int i=1; i<=3; i++) {
+        List<String> productPropLst = new ArrayList<>();
+        for (int i=1; i<=4; i++) { // loop through products-storeId.txt files
             productsContent = ShoppingMall.readFile(Path.of(String.format(String.valueOf(ShoppingMall.productFilePath),i)));
             productLst = Arrays.asList(productsContent.split("#"));
             for (String productStr: productLst
             ) {
                 Product product = new Product();
-                productArr = productStr.split(",");
-                product.setProductId(productArr[0]);
-                product.setName(productArr[1]);
-                product.setSize(productArr[2]);
-                product.setColor(productArr[3]);
-                product.setPrice(Float.parseFloat(productArr[4]));
+                productPropLst = Arrays.asList(productStr.split(","));
+                product.setProductId(productPropLst.get(0));
+                product.setName(productPropLst.get(1));
+                product.setSize(productPropLst.get(2));
+                product.setColor(productPropLst.get(3));
+                product.setPrice(Float.parseFloat(productPropLst.get(4)));
                 for (Store store: ShoppingMall.manageMall.getStores()) {
                     ArrayList<Product> products = new ArrayList<>();
                     if (Integer.parseInt(store.getId())==i) {

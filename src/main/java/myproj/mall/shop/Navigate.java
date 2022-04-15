@@ -59,7 +59,7 @@ public class Navigate {
 
     // Method: print list of store products for browsing
     public static void browseProducts(String storeName) {
-        System.out.print("Store: "+storeName+" has the following products:\n");
+        System.out.print("Store: "+storeName+" has the following products for shopping:\n");
         for (Product product : ManageMall.getAStore(storeName).getProducts()
         ) {
             System.out.println("Product ID: "+product.getProductId()+" Product Name: "+product.getName()+

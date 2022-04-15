@@ -72,17 +72,17 @@ public class ManageMall implements IManageEmployee {
 
     // Method: init to load stores from file
     public void loadStores() {
-        String[] storeArr = new String[4];
         String storesContent = ShoppingMall.readFile(ShoppingMall.storeFilePath);
         List<String> storeLst = Arrays.asList(storesContent.split("#"));
+        List<String> storePropLst = new ArrayList<>();
         for (String storeStr: storeLst
         ) {
             Store store = new Store();
-            storeArr = storeStr.split(",");
-            store.setId(storeArr[0]);
-            store.setName(storeArr[1]);
-            store.setType(storeArr[2]);
-            store.setLotId(storeArr[3]);
+            storePropLst = Arrays.asList(storeStr.split(","));
+            store.setId(storePropLst.get(0));
+            store.setName(storePropLst.get(1));
+            store.setType(storePropLst.get(2));
+            store.setLotId(storePropLst.get(3));
             ShoppingMall.manageMall.stores.add(store);
         }
     }

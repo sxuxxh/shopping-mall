@@ -59,12 +59,16 @@ public class ShoppingCart {
 
     // Method: print items in Cart
     public void printCartItems() {
-        System.out.println("Okay, your Shopping Cart has the following items:");
-        for (Product product: this.items
-             ) {
-            if (!(product == null)) {
-                System.out.println(product);
+        if (this.items.size()>0) {
+            System.out.println("\nYour shopping cart has:");
+            for (Product product : this.items
+            ) {
+                if (!(product == null)) {
+                    System.out.println(product);
+                }
             }
+        } else {
+            System.out.println("\nYour shopping cart is empty.");
         }
     }
 }
