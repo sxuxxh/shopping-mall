@@ -5,6 +5,7 @@
 */
 package myproj.mall.shop;
 
+import myproj.mall.ShoppingMall;
 import myproj.mall.store.Product;
 
 public class CheckOut {

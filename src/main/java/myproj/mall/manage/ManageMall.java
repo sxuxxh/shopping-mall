@@ -75,6 +75,7 @@ public class ManageMall implements IManageEmployee {
         String storesContent = ShoppingMall.readFile(ShoppingMall.storeFilePath);
         List<String> storeLst = Arrays.asList(storesContent.split("#"));
         List<String> storePropLst = new ArrayList<>();
+        ShoppingMall.logger.info("System initializing with loading stores...");
         for (String storeStr: storeLst
         ) {
             Store store = new Store();
@@ -84,7 +85,9 @@ public class ManageMall implements IManageEmployee {
             store.setType(storePropLst.get(2));
             store.setLotId(storePropLst.get(3));
             ShoppingMall.manageMall.stores.add(store);
+            ShoppingMall.logger.info("Loaded store: "+store.getName());
         }
+        ShoppingMall.logger.info("System initializing with all stores loaded.");
     }
 
     // Method: get a store

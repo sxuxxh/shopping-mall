@@ -55,6 +55,7 @@ public class Navigate {
         ) {
             System.out.println("Store Name: "+store.getName()+" || Store Type: "+store.getType()+" || Store Location: "+store.getLotId());
         }
+        ShoppingMall.logger.info("Customer browsed stores.");
     }
 
     // Method: print list of store products for browsing
@@ -65,5 +66,6 @@ public class Navigate {
             System.out.println("Product ID: "+product.getProductId()+" Product Name: "+product.getName()+
                     " Product Size: "+product.getSize()+" Product Price: $"+product.getPrice());
         }
+        ShoppingMall.logger.info("Customer browsed store: "+storeName+" products.");
     }
 }

@@ -5,6 +5,8 @@
 */
 package myproj.mall.shop;
 
+import myproj.mall.ShoppingMall;
+
 public class MallMap {
     // Fields
     private String mallMap;
@@ -66,5 +68,6 @@ public class MallMap {
         System.out.println("|  |________|  |_____________________|   |__________|  |");
         System.out.println("|______________________________________________________|");
         System.out.print(ANSI_RESET);
+        ShoppingMall.logger.info("Customer printed mall map.");
     }
 }

@@ -21,9 +21,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.logging.Logger;
 
 public class ShoppingMall {
     public static Scanner scanner = new Scanner(System.in);
+    public static Logger logger = null;
     private static Login myLogin = new Login();
     public static final Path passFilePath = Paths.get(System.getProperty("user.dir")+"\\src\\main\\resources\\passes.txt");
     private static final Path menuFilePath = Paths.get(System.getProperty("user.dir")+"\\src\\main\\resources\\menus.txt");
@@ -84,6 +86,7 @@ public class ShoppingMall {
         System.out.println("      Welcome to Skyline Shopping Mall!     ");
         System.out.println("*********************************************");
         menus();
+        logger.info("System starting...");
         manageMall.loadStores();
         manageStore.loadProducts();
 
@@ -122,16 +125,16 @@ public class ShoppingMall {
     // Method: build navigation menus
     public static void menus() {
         var menuKey = "";
-        var menuArr = new String[2];
         var allMenuStr = "";
         createFile(menuFilePath); // create menus.txt
         updateFile(menuFilePath, menuFileContent); // update menus.txt
         allMenuStr = readFile(menuFilePath);
         List<String> menuLst = Arrays.asList(allMenuStr.split("#"));
+        List<String> menuPropLst = new ArrayList<>();
         for (String menu: menuLst
              ) {
-            menuArr = menu.split("~");
-            navigate.buildMenu(menuArr[0], menuArr[1]);
+            menuPropLst = Arrays.asList(menu.split("~"));
+            navigate.buildMenu(menuPropLst.get(0), menuPropLst.get(1));
         }
     }
 
@@ -219,6 +222,7 @@ public class ShoppingMall {
                     break;
                 case "4":
                     System.out.print("Goodbye "+myLogin.getUid()+"! See you again soon.\n");
+                    logger.info(myLogin.getUid()+" exited mall.");
                     System.exit(0);
                 default:
                     System.out.print("\n");
@@ -247,17 +251,19 @@ public class ShoppingMall {
                                 "product to be added to your Shopping Cart, or enter \"DONE\" when ready to check out. ==> ");
                         usrIn = scanner.next();
                         shoppingCart.addAProductToCart(usrInStore, usrIn); // add item in Cart
+                        logger.info("Customer: "+myLogin.getUid()+" added a product to shopping cart in store: "+usrInStore);
                         shoppingCart.printCartItems();
                         // remove item from cart
                         cartItems = shoppingCart.getItems().size();
                         while (!usrIn.equals("DONE")) {
                             if (cartItems > 0) {
                                 System.out.print("\nIf you want to remove a product from your Shopping Cart, " +
-                                        "please enter the productID, \nor enter \"KEEP\" to continue shopping or checkout. ==> ");
+                                        "please enter the productID, \nor enter \"C\" to continue shopping or checkout. ==> ");
                                 cartAction = scanner.next();
-                                if (!cartAction.equals("KEEP")) {
+                                if (!cartAction.equals("C")) {
                                     // remove a product from CART
                                     shoppingCart.removeAProductFromCart(cartAction);
+                                    logger.info("Customer: "+myLogin.getUid()+" removed a product from shopping cart in store: "+usrInStore);
                                     System.out.println("\nItem has been removed from your shopping cart.");
                                     // print remaining items in cart
                                     shoppingCart.printCartItems();
@@ -271,6 +277,7 @@ public class ShoppingMall {
                     shoppingCart.printCartItems();
                     System.out.println("\nYour total payment is: $"+checkOut.calculatePayment(shoppingCart));
                     System.out.println("Thank you "+myLogin.getUid()+ " for your business!\nPlease shop with "+usrInStore+" again.");
+                    logger.info("Customer: "+myLogin.getUid()+" checked out from store: "+usrInStore);
                     shoppingCart.getItems().clear(); // reset shopping cart
                     System.out.print("\n");
                     processMenu("004-CustomerMain");
@@ -291,6 +298,7 @@ public class ShoppingMall {
                     break;
                 case "6":
                     System.out.print("Goodbye "+myLogin.getUid()+"! See you again soon.\n");
+                    logger.info(myLogin.getUid()+" exited mall.");
                     System.exit(0);
                 default:
                     System.out.print("\n");
@@ -339,6 +347,7 @@ public class ShoppingMall {
                     processMenu("001-Main");
                 case "7":
                     System.out.print("Goodbye "+myLogin.getUid()+"! See you again soon.\n");
+                    logger.info(myLogin.getUid()+" exited mall.");
                     System.exit(0);
                 default:
                     System.out.print("\n");
@@ -382,6 +391,7 @@ public class ShoppingMall {
                     break;
                 case "6":
                     System.out.print("Goodbye "+myLogin.getUid()+"! See you again soon.\n");
+                    logger.info(myLogin.getUid()+" exited mall.");
                     System.exit(0);
                 default:
                     System.out.print("\n");

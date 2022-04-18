@@ -11,6 +11,7 @@ import java.io.Console;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class Login {
     // Fields
@@ -20,6 +21,7 @@ public class Login {
 
     // Constructors
     public Login() {
+        ShoppingMall.logger = Logger.getLogger(Login.class.getName());
     }
 
     public Login(String uid, String pwd, String role) {
@@ -56,11 +58,15 @@ public class Login {
     public void getUidPwd() {
         Console console = System.console();
         if (!(console == null)) {
+            ShoppingMall.logger.info("Getting user name...");
             this.setUid(console.readLine("Please enter your user name: "));
+            ShoppingMall.logger.info("Getting user password...");
             this.setPwd(new String(console.readPassword("Please enter your password:  ")));
         } else {
+            ShoppingMall.logger.info("Getting user name...");
             System.out.print("Please enter your user name: ");
             this.setUid(ShoppingMall.scanner.next());
+            ShoppingMall.logger.info("Getting user name...");
             System.out.print("Please enter your password: ");
             this.setPwd(ShoppingMall.scanner.next());
         }
@@ -77,10 +83,12 @@ public class Login {
             loginArr = usr.split(",");
             if (this.getUid().equals(loginArr[0]) && String.valueOf(this.getPwd().hashCode()).equals(loginArr[1])) {
                 this.setRole(loginArr[2]);
+                ShoppingMall.logger.info("User: "+this.getUid()+" is authorized with user role: "+this.getRole());
                 break;
             }
         }
         if (this.getRole()==null || this.getRole().equals("")) {
+            ShoppingMall.logger.info("Invalid user login.");
             System.out.println("\nInvalid Login. Possible causes:\n   " +
                     "1. You may have entered invalid userid/password.\n   " +
                     "2. You have not registered an account.\n" +

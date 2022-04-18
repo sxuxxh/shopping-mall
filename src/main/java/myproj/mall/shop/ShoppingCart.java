@@ -5,6 +5,7 @@
 */
 package myproj.mall.shop;
 
+import myproj.mall.ShoppingMall;
 import myproj.mall.manage.ManageStore;
 import myproj.mall.store.Product;
 

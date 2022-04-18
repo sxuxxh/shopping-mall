@@ -95,11 +95,12 @@ public class ManageStore implements IManageEmployee {
         }
     }
 
-    // Method: init to load products into 3 stores
+    // Method: init to load products into stores
     public void loadProducts() {
         String productsContent = "";
         List<String> productLst = new ArrayList<>();
         List<String> productPropLst = new ArrayList<>();
+        ShoppingMall.logger.info("System initializing with loading store products...");
         for (int i=1; i<=4; i++) { // loop through products-storeId.txt files
             productsContent = ShoppingMall.readFile(Path.of(String.format(String.valueOf(ShoppingMall.productFilePath),i)));
             productLst = Arrays.asList(productsContent.split("#"));
@@ -118,13 +119,16 @@ public class ManageStore implements IManageEmployee {
                         if (store.getProducts() == null) {
                             products.add(product);
                             store.setProducts(products);
+                            ShoppingMall.logger.info("Loaded product: "+product.getProductId()+" -- "+product.getName()+" in store: "+store.getName());
                         } else {
                             store.getProducts().add(product);
+                            ShoppingMall.logger.info("Loaded product: "+product.getProductId()+" -- "+product.getName()+" in store: "+store.getName());
                         }
                     }
                 }
             }
         }
+        ShoppingMall.logger.info("System initializing with all store products loaded.");
     }
 
     // Method: get a product

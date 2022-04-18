@@ -1,0 +1,6 @@
+Apr 15, 2022 2:26:18 PM myproj.mall.manage.Login getUidPwd
+INFO: Getting user name...
+Apr 15, 2022 2:26:21 PM myproj.mall.manage.Login getUidPwd
+INFO: Getting user password...
+Apr 15, 2022 2:26:24 PM myproj.mall.manage.Login authnAuthz
+INFO: Authorized user role: MC
